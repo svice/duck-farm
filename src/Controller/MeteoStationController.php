@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\MeteoStation\CurrentConditionDisplay;
+use App\MeteoStation\ForecastDisplay;
 use App\MeteoStation\StatisticsDisplay;
 use App\MeteoStation\WeatherData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,12 +21,12 @@ class MeteoStationController extends AbstractController
 
     	$currentDisplay = new CurrentConditionDisplay($weatherData);
     	new StatisticsDisplay($weatherData);
+    	$forecast = new ForecastDisplay();
     	$weatherData->setMeasureElements(1,2,3);
-    	$weatherData->setMeasureElements(2,3,4);
-//        return $this->json([
-//            'message' => 'Welcome to your new controller!',
-//            'path' => 'src/Controller/MeteoStationController.php',
-//        ]);
+    	$weatherData->removeObserver($currentDisplay);
+    	$forecast->setSubject($weatherData);
+    	$weatherData->setMeasureElements(2,33,44);
+
 		return $this->json('');
     }
 }

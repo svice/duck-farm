@@ -1,10 +1,19 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: user
+ * Date: 09.07.2022
+ * Time: 18:51
+ */
+
 namespace App\MeteoStation;
+
 
 use App\Observer\ObserverInterface;
 use App\Observer\SubjectInterface;
 
-class CurrentConditionDisplay implements ObserverInterface, DisplayInterface {
+class ForecastDisplay implements DisplayInterface, ObserverInterface
+{
 	private $temperature;
 	private $humidity;
 	private $pressure;
@@ -13,20 +22,11 @@ class CurrentConditionDisplay implements ObserverInterface, DisplayInterface {
 	 */
 	private $weatherData;
 
-	public function __construct(SubjectInterface $weatherData)
-	{
-		$this->weatherData = $weatherData;
-		$weatherData->registerObserver($this);
-	}
-
 	public function setSubject(SubjectInterface $subject) {
 		$this->weatherData = $subject;
 		$subject->registerObserver($this);
 	}
 
-	/**
-	 * @var WeatherData $weatherData
-	 */
 	public function update()
 	{
 		$this->temperature = $this->weatherData->temperature;
@@ -37,6 +37,6 @@ class CurrentConditionDisplay implements ObserverInterface, DisplayInterface {
 
 	public function display()
 	{
-		echo "Current conditions: temperature - $this->temperature, humidity - $this->humidity\n";
+		echo "Statistics: temperature - $this->temperature-cloudy, humidity - $this->humidity+sunny\n";
 	}
 }

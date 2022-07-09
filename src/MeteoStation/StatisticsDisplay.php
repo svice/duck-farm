@@ -17,6 +17,9 @@ class StatisticsDisplay implements ObserverInterface, DisplayInterface
 	private $temperature;
 	private $humidity;
 	private $pressure;
+	/**
+	 * @var WeatherData $weatherData
+	 */
 	private $weatherData;
 
 	public function __construct(SubjectInterface $weatherData)
@@ -25,11 +28,11 @@ class StatisticsDisplay implements ObserverInterface, DisplayInterface
 		$weatherData->registerObserver($this);
 	}
 
-	public function update(float $temp, float $humidity, float $pressure)
+	public function update()
 	{
-		$this->temperature = $temp;
-		$this->humidity = $humidity;
-		$this->pressure = $pressure;
+		$this->temperature = $this->weatherData->temperature;
+		$this->humidity = $this->weatherData->humidity;
+		$this->pressure = $this->weatherData->pressure;
 		$this->display();
 	}
 

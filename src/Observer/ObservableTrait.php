@@ -1,7 +1,12 @@
 <?php
 namespace App\Observer;
 
-trait ObserverTrait {
+trait ObservableTrait {
+	/**
+	 * @var ObserverInterface[] $observers
+	 */
+	private $observers;
+
 	public function __construct()
 	{
 		$this->observers = new \Doctrine\Common\Collections\ArrayCollection();
@@ -9,6 +14,9 @@ trait ObserverTrait {
 
 	public function registerObserver(ObserverInterface $observer)
 	{
+		if ($this->observers->contains($observer)) {
+			throw new \Exception('This observer already exist');
+		}
 		$this->observers->add($observer);
 	}
 	public function removeObserver(ObserverInterface $observer)
@@ -18,10 +26,7 @@ trait ObserverTrait {
 	public function notifyObservers()
 	{
 		foreach ($this->observers as $observer) {
-			/**
-			 * @var ObserverInterface $observer
-			 */
-			$observer->update($this->temperature, $this->humidity, $this->pressure);
+			$observer->update();
 		}
 	}
 }
