@@ -12,6 +12,6 @@ namespace App;
 class FlyNoWay implements FlyBehavior
 {
 	public function fly() {
-		return 'I cant fly';
+		echo "I cant fly\n";
 	}
 }

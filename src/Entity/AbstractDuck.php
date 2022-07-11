@@ -11,9 +11,10 @@ namespace App\Entity;
 
 use App\FlyBehavior;
 use App\FlyWithWings;
+use App\Observer\ObserverInterface;
 use App\QuackBehavior;
 
-abstract class AbstractDuck
+abstract class AbstractDuck implements ObserverInterface
 {
 	public $name;
 	public $flyBehavior;
@@ -39,5 +40,13 @@ abstract class AbstractDuck
 
 	public function swim() {
 		return 'I can swim';
+	}
+
+	use \ObserverTrait;
+
+	public function update()
+	{
+		$this->fly();
+		$this->quack();
 	}
 }

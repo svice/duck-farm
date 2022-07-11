@@ -13,6 +13,6 @@ class MuteQuack implements QuackBehavior
 {
 	public function quack()
 	{
-		return '--silence--';
+		echo "--silence--\n";
 	}
 }

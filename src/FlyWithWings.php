@@ -13,6 +13,6 @@ class FlyWithWings implements FlyBehavior
 {
 	public function fly()
 	{
-		return 'I fly with wings';
+		echo "I fly with wings\n";
 	}
 }

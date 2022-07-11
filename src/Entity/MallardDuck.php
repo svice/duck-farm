@@ -11,14 +11,23 @@ namespace App\Entity;
 
 use App\FlyBehavior;
 use App\FlyWithWings;
+use App\Observer\ObserverInterface;
 use App\Quack;
 use App\QuackBehavior;
+use PhpParser\Builder\Class_;
 
-class MallardDuck extends AbstractDuck
+class MallardDuck extends AbstractDuck implements ObserverInterface
 {
 	public function __construct()
 	{
 		$this->flyBehavior = new FlyWithWings();
 		$this->quackBehavior = new Quack();
+	}
+	use \ObserverTrait;
+
+	public function update()
+	{
+		echo self::class."\n";
+		parent::update();
 	}
 }

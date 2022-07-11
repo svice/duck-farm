@@ -21,4 +21,10 @@ class RubberDuck extends AbstractDuck
 		$this->flyBehavior = new FlyNoWay();
 		$this->quackBehavior = new Quack();
 	}
+
+	public function update()
+	{
+		echo self::class."\n";
+		parent::update();
+	}
 }

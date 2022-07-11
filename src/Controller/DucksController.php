@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Duck;
+use App\Entity\Hunter;
 use App\Entity\MallardDuck;
 use App\Entity\RubberDuck;
 use App\FlyNoWay;
@@ -21,15 +22,20 @@ class DucksController extends AbstractController
     public function index(): Response
     {
 //    	$duck = new Duck(new FlyNoWay(), new Quack());
-		$duck = new RubberDuck();
-		$duck->quackBehavior = new MuteQuack();
-		$duck->setFlyBehavior(new FlyWithWings());
+		$duck = new MallardDuck();
+		$rubberDuck = new RubberDuck();
+		$rubberDuck->quackBehavior = new MuteQuack();
+//		$duck->setFlyBehavior(new FlyNoWay());
+		$hunter = new Hunter();
+		$duck->setSubject($hunter);
+		$rubberDuck->setSubject($hunter);
+		$hunter->shoot();
         return $this->json([
-        	'name' => get_class($duck),
-            'fly' => $duck->fly(),
-            'quack' => $duck->quack(),
-            'swim' => $duck->swim(),
-            'path' => 'src/Controller/DucksController.php',
+//        	'name' => get_class($duck),
+//            'fly' => $duck->fly(),
+//            'quack' => $duck->quack(),
+//            'swim' => $duck->swim(),
+//            'path' => 'src/Controller/DucksController.php',
         ]);
     }
 }
